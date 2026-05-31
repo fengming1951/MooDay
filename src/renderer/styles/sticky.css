@@ -1,0 +1,333 @@
+.sticky-board {
+  height: 100%;
+  position: relative;
+  overflow: auto;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(96, 205, 255, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(196, 122, 255, 0.04) 0%, transparent 50%),
+    var(--bg-secondary);
+}
+
+.sticky-board-empty {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  animation: scaleIn var(--transition-slow);
+}
+
+.sticky-board-empty-emoji {
+  font-size: 48px;
+  animation: pulse 2s infinite;
+}
+
+.sticky-board-empty-text {
+  font-size: 15px;
+  color: var(--text-tertiary);
+}
+
+.create-sticky-btn {
+  padding: 10px 24px;
+  border: none;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+}
+
+.create-sticky-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 102, 204, 0.3);
+}
+
+.create-sticky-btn:active {
+  background: var(--accent-pressed);
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.sticky-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+  margin: 16px;
+  padding: 12px 16px;
+  background: var(--bg-acrylic);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-medium);
+  backdrop-filter: blur(20px);
+  flex-wrap: wrap;
+}
+
+.toolbar-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--border-medium);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toolbar-btn:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent);
+  transform: scale(1.03);
+}
+
+.toolbar-btn:active {
+  transform: scale(0.95);
+}
+
+.sticky-canvas {
+  position: relative;
+  width: 100%;
+  min-height: calc(100% - 80px);
+}
+
+.sticky-note {
+  position: absolute;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  cursor: default;
+  transition: box-shadow var(--transition-normal), border-color var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  animation: scaleIn var(--transition-spring);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+.sticky-note:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.sticky-note.pinned {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 4px 16px rgba(0, 102, 204, 0.2);
+}
+
+.sticky-note.active {
+  z-index: 3;
+}
+
+.sticky-note.dragging {
+  opacity: 0.85;
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+  transition: none;
+  cursor: grabbing;
+  will-change: transform;
+}
+
+.sticky-note.float-preview {
+  border-radius: 16px !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.35) !important;
+  outline: 2px dashed var(--accent);
+  outline-offset: 4px;
+}
+
+.sticky-header {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-bottom: 8px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.sticky-note:hover .sticky-header {
+  opacity: 1;
+}
+
+.sticky-header-btn {
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: rgba(128, 128, 128, 0.15);
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.sticky-header-btn:hover {
+  background: rgba(128, 128, 128, 0.3);
+  color: var(--text-primary);
+  transform: scale(1.1);
+}
+
+.sticky-header-btn:active {
+  transform: scale(0.85);
+}
+
+.sticky-header-btn.pin-active {
+  color: var(--accent);
+  background: rgba(0, 102, 204, 0.15);
+}
+
+.sticky-header-btn.delete:hover {
+  background: var(--danger);
+  color: white;
+}
+
+.sticky-content {
+  flex: 1;
+  min-height: 80px;
+}
+
+.sticky-editor {
+  width: 100%;
+  min-height: 100px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+  line-height: 1.6;
+}
+
+.sticky-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.sticky-image-wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.sticky-image-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.sticky-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-image-btn {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.sticky-image-wrapper:hover .remove-image-btn {
+  opacity: 1;
+}
+
+.sticky-mood-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+.sticky-mood-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticky-mood-btn:hover {
+  background: rgba(128, 128, 128, 0.15);
+  transform: scale(1.15);
+}
+
+.sticky-mood-btn:active {
+  transform: scale(0.9);
+}
+
+.sticky-mood-timer {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-left: auto;
+}
+
+.sticky-resize-handle {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 14px;
+  height: 14px;
+  cursor: se-resize;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.sticky-note:hover .sticky-resize-handle {
+  opacity: 1;
+}
+
+.sticky-resize-handle::after {
+  content: '';
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--text-tertiary);
+  border-bottom: 2px solid var(--text-tertiary);
+}
+
+.sticky-url {
+  color: var(--accent);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.sticky-url:hover {
+  color: var(--accent-hover);
+}
